@@ -1,0 +1,9 @@
+h1 {
+	text-align: center;
+}
+.browse-box {
+	text-align: center;
+}
+.form-group > div {
+	margin-top: 8px;
+}

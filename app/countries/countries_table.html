@@ -1,4 +1,5 @@
-<table class="table table-striped">
+<table class="table table-striped table-info">
+  <img src="img/loading-animation.gif" class="loadingImagePos" ng-class="{ loadingImage: isloading }" alt="">
   <thead>
     <td>Name</td>
     <td>Country Code</td> 
@@ -7,20 +8,39 @@
     <td>Population</td> 
     <td>Continent</td>
   </thead>
-  <tr ng-repeat="country in countries">
-    
-      <td>
-        <a href="#/countries/{{ country.countryName }}/{{ country.countryCode }}/capital">
-          {{ country.countryName }}
-        </a>
-      </td>
-      <td>{{ country.fipsCode }}</td>
-      <td>{{ country.capital }}</td>
-      <td>{{ country.areaInSqKm }}</td>
-      <td>{{ country.population }}</td>
-      <td>{{ country.continent }}</td>
-    
-  </tr>
+    <tr ng-repeat="country in countries">
+      
+        <td>
+          <a href="#/countries/{{ country.countryName }}/{{ country.countryCode }}/capital">
+            {{ country.countryName }}
+          </a>
+        </td>
+        <td>
+          <a href="#/countries/{{ country.countryName }}/{{ country.countryCode }}/capital">
+            {{ country.fipsCode }}
+          </a>
+        </td>
+        <td>
+          <a href="#/countries/{{ country.countryName }}/{{ country.countryCode }}/capital">
+            {{ country.capital | number}}
+          </a>
+        </td>
+        <td>
+          <a href="#/countries/{{ country.countryName }}/{{ country.countryCode }}/capital">
+            {{ country.areaInSqKm | number}}
+          </a>
+        </td>
+        <td>
+          <a href="#/countries/{{ country.countryName }}/{{ country.countryCode }}/capital">
+            {{ country.population | number}}
+          </a>
+        </td>
+        <td>
+          <a href="#/countries/{{ country.countryName }}/{{ country.countryCode }}/capital">
+            {{ country.continent }}
+          </a>
+        </td>
+    </tr>
 </table>
 
 <br>
@@ -28,10 +48,9 @@
 <div class="browse-box">
   <a href="#/countries/test/capital">
     <button class="btn btn-default">
-      Browse Countries
+      HOME
     </button>
   </a>
 </div>
 
 <br>
-{{ aa }}

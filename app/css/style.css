@@ -1,9 +1,51 @@
 h1 {
 	text-align: center;
 }
+body, html { position:relative; min-height:100%; }
+
 .browse-box {
 	text-align: center;
 }
 .form-group > div {
 	margin-top: 8px;
+}
+.country-image-box {
+	text-align: center;
+}
+.table-info {
+	position: relative;
+}
+.loadingImage {
+	opacity: 0;
+}
+.loadingImagePos {
+	position: absolute;
+	top: 120px;
+	left: 50%;
+	-ms-transform: translateX(-50%); /* IE 9 */
+    -webkit-transform: translateX(-50%); /* Chrome, Safari, Opera */
+    transform: translateX(-50%);
+}
+.loadingImagePos2 {
+	position: absolute;
+	top: 80px;
+	left: 50%;
+	-ms-transform: translateX(-50%); /* IE 9 */
+    -webkit-transform: translateX(-50%); /* Chrome, Safari, Opera */
+    transform: translateX(-50%);
+}
+.country-details-form {
+	position: relative;
+}
+.loadingContainer {
+	position: absolute;
+	opacity: .7;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #000;
+}
+.loadingImageContainer {
+	display: none;
 }

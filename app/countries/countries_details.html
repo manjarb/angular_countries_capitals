@@ -1,16 +1,23 @@
 <h1 style="text-align: left;">USA</h1>
 <br>
-<div class="form-horizontal">
+<div class="form-horizontal country-details-form">
+
+  <div class="loadingContainer" ng-class="{ loadingImageContainer: isloading }">
+    <div class="loadingImageBox">
+      <img src="img/loading-animation.gif" alt="" class="loadingImagePos2">
+    </div>
+  </div>
+
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-6 control-label">Population</label>
     <div class="col-sm-6">
-      {{ population }}
+      {{ population | number}}
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-6 control-label">Area</label>
     <div class="col-sm-6">
-      {{ area }}
+      {{ area | number }}
     </div>
   </div>
   <div class="form-group">
@@ -22,25 +29,33 @@
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-6 control-label">Population of Capital</label>
     <div class="col-sm-6">
-      {{ populationCapital }}
+      {{ populationCapital | number }}
     </div>
   </div>
   <div class="form-group">
-    <label for="inputEmail3" class="col-sm-6 control-label">3 neightbors</label>
+    <label for="inputEmail3" class="col-sm-6 control-label">{{ neightborsCount }} neightbors</label>
     <div class="col-sm-6">
-      <a href="">Cuba</a>
-      ,
-      <a href="">indan</a>
-      ,
-      <a href="">us</a>
+      <span ng-repeat="neightbor in neightborsData">
+        {{ neightbor.name }} 
+      </span>
 
     </div>
   </div>
 </div>
 
+<br>
+<br>
+
 <div class="country-image-box">
-  <img src="" alt="">
-  <img src="" alt="">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="http://www.geonames.org/img/country/250/{{ countryCode }}.png" alt="">
+    </div>
+    <div class="col-md-6">
+      <img src="http://www.geonames.org/flags/x/{{ lowwerCountryCode }}.gif" alt="">
+    </div>
+  </div>
+
 </div>
 <br>
 <div class="browse-box">

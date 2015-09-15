@@ -2,6 +2,7 @@ angular.module('countriesAndCapitals', ['ngRoute', 'ngAnimate'])
 	.constant('countriesInfoUrl', 'http://api.geonames.org/countryInfo?username=manjarb')
 	.constant('countriesDetailsUrl', 'http://api.geonames.org/countryInfo?username=manjarb&country={{ countryCode }}&maxRows=1')
 	.constant('capitalDetailsUrl', 'http://api.geonames.org/search?username=manjarb&name_equals={{ capitalName }}&maxRows=1&style=LONG')
+	.constant('neighboursDetailsUrl', 'http://api.geonames.org/neighbours?username=manjarb&geonameId={{ geonameId }}')
 	.factory('countriesInfoRequest', function($http, $q, countriesInfoUrl) {
 		return function() {
 		  return $http({
@@ -38,7 +39,26 @@ angular.module('countriesAndCapitals', ['ngRoute', 'ngAnimate'])
 						    capitalName : capitalName
 						  });
 
-            alert(path);
+            $http({
+				    cache : true,
+				    method: 'GET',
+				    url: path
+				  })
+			        .then(function(response) {
+			            defer.resolve(response.data);
+			        });
+            return defer.promise;
+        }
+	})
+	.factory('neighboursRequest', function($http, $q, $interpolate, neighboursDetailsUrl) {
+		return function(geonameId) {
+
+            var defer = $q.defer();
+            var path = $interpolate(neighboursDetailsUrl)({
+						    geonameId : geonameId
+						  });
+
+            //alert(path);
 
             $http({
 				    cache : true,
@@ -76,8 +96,10 @@ angular.module('countriesAndCapitals', ['ngRoute', 'ngAnimate'])
         //empty for now
         
     })
-    .controller('CountriesListCtrl', function($scope,$http,$q,countriesInfoRequest) {
+    .controller('CountriesListCtrl', function($rootScope,$scope,$http,$q,countriesInfoRequest) {
         //empty for now
+
+        //$rootScope.isloading = true;
 
         countriesInfoRequest()
 	        .then(function(response) {
@@ -89,10 +111,11 @@ angular.module('countriesAndCapitals', ['ngRoute', 'ngAnimate'])
 		      var json = x2js.xml_str2json(response.data);
 		      //alert(json.geonames.country)
 		      $scope.countries = json.geonames.country;
+		      $rootScope.isloading = true;
 		    });
 
     })
-    .controller('CountriesDetailsCtrl', function($scope,$http,$q,countriesDetailsRequest,country,capitalDetailsRequest) {
+    .controller('CountriesDetailsCtrl', function($rootScope,$scope,$http,$q,countriesDetailsRequest,country,capitalDetailsRequest,neighboursRequest) {
         //empty for now
 
         //countriesDetailsRequest(country,code);
@@ -113,10 +136,30 @@ angular.module('countriesAndCapitals', ['ngRoute', 'ngAnimate'])
 	            	var json = x2js.xml_str2json(resultCapital);
 	            	var capitalResult = json.geonames.geoname;
 
-	            	$scope.population = geonameResult.population;
-		            $scope.area = geonameResult.areaInSqKm;
-		            $scope.capital = geonameResult.capital;
-		            $scope.populationCapital = capitalResult.population;
+	            	neighboursRequest(geonameResult.geonameId).then(function(resultNeighbours){
+	            		
+	            		var x2js = new X2JS();
+	            		var json = x2js.xml_str2json(resultNeighbours);
+	            		
+	            		var neighbourResult = json.geonames.geoname;
+
+	            		console.log(neighbourResult);
+
+	            		$scope.neightborsCount = neighbourResult.length;
+
+	            		$scope.neightborsData = neighbourResult;
+
+	            		$scope.population = geonameResult.population;
+			            $scope.area = geonameResult.areaInSqKm;
+			            $scope.capital = geonameResult.capital;
+			            $scope.populationCapital = capitalResult.population;
+			            $scope.countryCode = geonameResult.countryCode;
+			            $scope.lowwerCountryCode = geonameResult.countryCode.toLowerCase();
+
+			            $rootScope.isloading = true;
+	            	})
+
+	            	
 	            });
 
 	        });

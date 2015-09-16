@@ -4,8 +4,12 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Angular countries capitals</title>
+
+	<!-- build:css ./_assets/combined.css -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<!-- endbuild  -->
+
 </head>
 <body>
 	<h1>Countries & Capitals</h1>
@@ -14,12 +18,14 @@
 		<div ng-view></div>
 	</div>
 	
-
+	<!-- build:js ./_assets/combined.js -->
 	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
     <script type="text/javascript" src="bower_components/angular-messages/angular-messages.js"></script>
     <script type="text/javascript" src="js/xml2json.js"></script>
     <script type="text/javascript" src="js/countries_capitals.js"></script>
+	<!-- endbuild  -->
+
 </body>
 </html>
